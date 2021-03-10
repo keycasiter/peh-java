@@ -39,6 +39,7 @@ public class ContextHolder {
 
     public static void putIfAbsent(Object key, Object value) {
         Objects.requireNonNull(key, "key can not be null.");
+        Objects.requireNonNull(value, "value can not be null.");
 
         Map holder = THREAD_LOCAL_VARIABLE.get();
 
