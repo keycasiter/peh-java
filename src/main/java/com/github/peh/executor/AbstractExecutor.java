@@ -3,7 +3,6 @@ package com.github.peh.executor;
 import com.github.peh.context.ExecutorContextHolder;
 import com.github.peh.context.ProcessorContextHolder;
 import com.github.peh.handler.IHandler;
-import com.github.peh.enums.ExecutorTypeEnums;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,10 +51,10 @@ public abstract class AbstractExecutor implements IExecutor {
     }
 
     public String getExecutorType() {
-        if (this instanceof ParallelExecutor){
+        if (this instanceof ParallelExecutor) {
             return ExecutorTypeEnums.PARALLEL.getType();
         }
-        if (this instanceof SerialExecutor){
+        if (this instanceof SerialExecutor) {
             return ExecutorTypeEnums.SERIAL.getType();
         }
 

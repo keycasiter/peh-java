@@ -4,6 +4,8 @@ import com.github.peh.constants.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static com.github.peh.constants.Constants.*;
+
 /**
  * @author: <a href=mailto:keycasiter@qq.com>guanjian</a>
  * @date: 2021/03/08 16:23
@@ -12,25 +14,6 @@ import org.slf4j.LoggerFactory;
 public class KeyGenerator {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(KeyGenerator.class);
-
-    /**
-     * 流程器开关
-     */
-    public static String PROCESSOR_BLOCK = "PROCESSOR_BLOCK";
-
-    /**
-     * 流程器执行轨迹标记
-     */
-    public static String PROCESSOR_TRACE_MARK = "PROCESSOR_TRACE_MARK";
-
-    /**
-     * 执行器开关
-     */
-    public static String EXECUTOR_BLOCK = "EXECUTOR_BLOCK";
-    /**
-     * 执行器执行轨迹标记
-     */
-    public static String EXECUTOR_TRACE_MARK = "EXECUTOR_TRACE_MARK";
 
     /**
      * 生成Executor Terminate Key

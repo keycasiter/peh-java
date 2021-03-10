@@ -11,4 +11,23 @@ public class Constants {
      * 符号
      */
     public final static String LINE = "_";
+
+    /**
+     * 流程器开关
+     */
+    public static String PROCESSOR_BLOCK = "PROCESSOR_BLOCK";
+
+    /**
+     * 流程器执行轨迹标记
+     */
+    public static String PROCESSOR_TRACE_MARK = "PROCESSOR_TRACE_MARK";
+
+    /**
+     * 执行器开关
+     */
+    public static String EXECUTOR_BLOCK = "EXECUTOR_BLOCK";
+    /**
+     * 执行器执行轨迹标记
+     */
+    public static String EXECUTOR_TRACE_MARK = "EXECUTOR_TRACE_MARK";
 }

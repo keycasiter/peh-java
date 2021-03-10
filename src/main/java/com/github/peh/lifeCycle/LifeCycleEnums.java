@@ -1,5 +1,7 @@
 package com.github.peh.lifeCycle;
 
+import com.github.peh.exception.ConfigurationException;
+
 /**
  * created by guanjian on 2021/3/10 16:52
  */
@@ -62,6 +64,12 @@ public enum LifeCycleEnums {
         this.desc = desc;
     }
 
+    public static LifeCycleEnums getEnums(String stage) {
+        for (LifeCycleEnums each : LifeCycleEnums.values()) {
+            if (stage.equals(each.getStage())) return each;
+        }
+        throw new ConfigurationException(String.format("%s can not find which one matches.", stage));
+    }
 
     public static boolean check(String stage) {
         boolean res = false;

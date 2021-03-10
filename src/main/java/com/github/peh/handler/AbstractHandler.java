@@ -1,6 +1,5 @@
 package com.github.peh.handler;
 
-import com.github.peh.constants.Constants;
 import com.github.peh.context.ExecutorContextHolder;
 import com.github.peh.context.ParamContextHolder;
 import com.github.peh.context.ProcessorContextHolder;
@@ -41,7 +40,7 @@ public abstract class AbstractHandler implements IHandler {
         ParamContextHolder.putIfAbsent(key, value);
     }
 
-    public static void setVariable(Map<Object,Object> map) {
+    public static void setVariable(Map<Object, Object> map) {
         ParamContextHolder.putAll(map);
     }
 
@@ -57,22 +56,22 @@ public abstract class AbstractHandler implements IHandler {
      * request
      */
     public static Object getRequest() {
-        return ParamContextHolder.get(Constants.REQUEST_PARAM);
+        return ParamContextHolder.getRequest();
     }
 
     public static <C> C getRequest(Class<C> clazz) {
-        return (C) ParamContextHolder.get(Constants.REQUEST_PARAM);
+        return (C) ParamContextHolder.getRequest();
     }
 
     /**
      * response
      */
     public static Object getResponse() {
-        return ParamContextHolder.get(Constants.RESPONSE_PARAM);
+        return ParamContextHolder.getResponse();
     }
 
     public static <C> C getResponse(Class<C> clazz) {
-        return (C) ParamContextHolder.get(Constants.RESPONSE_PARAM);
+        return (C) ParamContextHolder.getResponse(clazz);
     }
 
 
