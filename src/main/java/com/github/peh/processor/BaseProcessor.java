@@ -11,7 +11,9 @@ import org.slf4j.LoggerFactory;
 import java.util.Objects;
 
 /**
- * created by guanjian on 2021/2/26 17:56
+ * @author: <a href=mailto:keycasiter@qq.com>guanjian</a>
+ * @date: 2021/03/10 14:46
+ * @description: 基础处理器
  */
 public class BaseProcessor implements IProcessor {
 
@@ -58,15 +60,13 @@ public class BaseProcessor implements IProcessor {
     public Object process(Object request) {
         ParamContextHolder.bindRequest(request);
 
-        Objects.requireNonNull(this.executor, "executor can not be null , processor needs it to work.");
-        LOGGER.debug("[PROCESSOR-PROCESS] processorName=[{}] , executorType=[{}] , executorName=[{}]", processorName, executor.getExecutorType(), executor.getExecutorName());
-        executor.execute();
+        process();
 
         return ParamContextHolder.getResponse();
     }
 
-    public boolean isTerminate() {
-        return ProcessorContextHolder.isTerminate();
+    public boolean available() {
+        return ProcessorContextHolder.available();
     }
 
     // executor change method

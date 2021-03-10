@@ -17,37 +17,37 @@ public class ExecutorContextHolder extends ContextHolder {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ContextHolder.class);
 
-    public static boolean isTerminate(IExecutor executor) {
+    public static boolean available(IExecutor executor) {
         String terminateKey = KeyGenerator.genExecutorTerminateKey(executor);
-        Object terminateValue = ContextHolder.getLocal(terminateKey);
+        Object terminateValue = ContextHolder.get(terminateKey);
         LOGGER.debug("[EXECUTOR-STATUS-CHECK] executor terminate key=[{}] status=[{}].",
                 terminateKey,
                 (Boolean) Optional.ofNullable(terminateValue).orElse(false)
-                        ? LifeCycleEnums.STOP.getStage() :
+                        ? LifeCycleEnums.unable.getStage() :
                         LifeCycleEnums.RUNNING.getStage()
         );
         return (Boolean) Optional.ofNullable(terminateValue).orElse(false);
     }
 
-    public static void stop(IExecutor executor) {
-        stop(executor, "");
+    public static void unable(IExecutor executor) {
+        unable(executor, "");
     }
 
-    public static void stop(IExecutor executor, String handleNode) {
+    public static void unable(IExecutor executor, String handleNode) {
         String terminateKey = KeyGenerator.genExecutorTerminateKey(executor);
-        ContextHolder.bindLocal(terminateKey, Boolean.TRUE);
-        ContextHolder.bindLocal(KeyGenerator.genExecutorTraceMarkKey(), handleNode);
-        LOGGER.debug("[EXECUTOR-STATUS-STOP] executor terminate=[{}] stop , handle node=[{}]", terminateKey, handleNode);
+        ContextHolder.put(terminateKey, Boolean.TRUE);
+        ContextHolder.put(KeyGenerator.genExecutorTraceMarkKey(), handleNode);
+        LOGGER.debug("[EXECUTOR-STATUS-unable] executor terminate=[{}] unable , handle node=[{}]", terminateKey, handleNode);
     }
 
-    public static void resume(IExecutor executor) {
-        resume(executor, "");
+    public static void enable(IExecutor executor) {
+        enable(executor, "");
     }
 
-    public static void resume(IExecutor executor, String handleNode) {
+    public static void enable(IExecutor executor, String handleNode) {
         String terminateKey = KeyGenerator.genExecutorTerminateKey(executor);
         ContextHolder.remove(terminateKey);
         ContextHolder.remove(KeyGenerator.genExecutorTraceMarkKey());
-        LOGGER.debug("[EXECUTOR-STATUS-RESUME] executor terminate=[{}] resume , handle node=[{}]", terminateKey, handleNode);
+        LOGGER.debug("[EXECUTOR-STATUS-enable] executor terminate=[{}] enable , handle node=[{}]", terminateKey, handleNode);
     }
 }

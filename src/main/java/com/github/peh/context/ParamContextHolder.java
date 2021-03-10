@@ -13,40 +13,40 @@ import static com.github.peh.constants.Constants.*;
 public class ParamContextHolder extends ContextHolder {
 
     public static void bindRequest(Object value) {
-        bindLocal(REQUEST_PARAM, value);
+        put(REQUEST_PARAM, value);
     }
 
     public static Object getRequest() {
-        return getLocal(REQUEST_PARAM);
+        return get(REQUEST_PARAM);
     }
 
     public static <D> D getRequest(Class<D> clazz) {
-        return (D) getLocal(REQUEST_PARAM);
+        return (D) get(REQUEST_PARAM);
     }
 
     public static void bindResponse(Object value) {
-        bindLocal(RESPONSE_PARAM, value);
+        put(RESPONSE_PARAM, value);
     }
 
     public static Object getResponse() {
-        return getLocal(RESPONSE_PARAM);
+        return get(RESPONSE_PARAM);
     }
 
     public static <D> D getResponse(Class<D> clazz) {
-        return (D) getLocal(RESPONSE_PARAM);
+        return (D) get(RESPONSE_PARAM);
     }
 
-    public static void bindTransmit(Object value) {
-        bindLocal(TRANSMIT_PARAM, value);
+    public static void bindDefault(Object value) {
+        put(DEFAULT, value);
     }
 
-    public static Object getTransmit() {
-        return getLocal(TRANSMIT_PARAM);
+    public static Object getDefault() {
+        return get(DEFAULT);
     }
 
     public static boolean check() {
-        return Optional.ofNullable(getLocal(REQUEST_PARAM)).isPresent()
+        return Optional.ofNullable(get(REQUEST_PARAM)).isPresent()
                 &&
-                Optional.ofNullable(getLocal(RESPONSE_PARAM)).isPresent();
+                Optional.ofNullable(get(RESPONSE_PARAM)).isPresent();
     }
 }

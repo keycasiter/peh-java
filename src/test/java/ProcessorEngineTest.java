@@ -46,7 +46,7 @@ public class ProcessorEngineTest {
             @Override
             public void handle() {
                 System.out.println("handler - 4");
-                ExecutorContextHolder.stop(processor1.getExecutor());
+                ExecutorContextHolder.unable(processor1.getExecutor());
             }
         };
 

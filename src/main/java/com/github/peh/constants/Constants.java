@@ -23,11 +23,6 @@ public class Constants {
     public final static String RESPONSE_PARAM = "RESPONSE_PARAM";
 
     /**
-     * 传值对象
-     */
-    public final static String TRANSMIT_PARAM = "TRANSMIT_PARAM";
-
-    /**
      * 流程器开关
      */
     public static String PROCESSOR_TERMINATE = "PROCESSOR_TERMINATE";

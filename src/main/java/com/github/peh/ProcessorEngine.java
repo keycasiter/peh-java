@@ -28,8 +28,8 @@ public class ProcessorEngine extends BaseProcessor {
 
         //processors must keep execute serially by order
         for (BaseProcessor processor : processors) {
-            if (isTerminate()) {
-                LOGGER.debug("[ProcessorEngine] engine has stopped , it will stop all processors.");
+            if (available()) {
+                LOGGER.debug("[ProcessorEngine] engine has unableped , it will unable all processors.");
                 break;
             }
 

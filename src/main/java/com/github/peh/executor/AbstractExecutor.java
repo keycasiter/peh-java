@@ -47,8 +47,8 @@ public abstract class AbstractExecutor implements IExecutor {
         this.handlers = handlers;
     }
 
-    public boolean isTerminate(IExecutor executor) {
-        return ExecutorContextHolder.isTerminate(executor) || ProcessorContextHolder.isTerminate();
+    public boolean available(IExecutor executor) {
+        return ExecutorContextHolder.available(executor) || ProcessorContextHolder.available();
     }
 
     public String getExecutorType() {

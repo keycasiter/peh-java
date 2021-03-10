@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-import static com.github.peh.constants.Constants.*;
-
 /**
  * @author: <a href=mailto:keycasiter@qq.com>guanjian</a>
  * @date: 2020/07/08 9:31
@@ -25,7 +23,8 @@ public class ContextHolder {
      */
     private final static ThreadLocal<Map<Object, Object>> THREAD_LOCAL_VARIABLE = ThreadLocal.withInitial(() -> Maps.newConcurrentMap());
 
-    public static void bindLocal(Object key, Object value) {
+
+    public static void put(Object key, Object value) {
         Objects.requireNonNull(key, "key can not be null");
 
         Map holder = THREAD_LOCAL_VARIABLE.get();
@@ -37,7 +36,7 @@ public class ContextHolder {
         LOGGER.debug("[CONTEXT-HOLDER] key=[{}],value=[{}] binded.", key, JSON.toJSONString(value));
     }
 
-    public static Object getLocal(Object key) {
+    public static Object get(Object key) {
         if (!Optional.ofNullable(THREAD_LOCAL_VARIABLE.get()).isPresent()) {
             return null;
         }
@@ -46,6 +45,27 @@ public class ContextHolder {
 
         LOGGER.debug("[CONTEXT-HOLDER] key=[{}],value=[{}] getted.", key, JSON.toJSONString(value));
         return value;
+    }
+
+    public static <C> C get(Object key, Class<C> clazz) {
+        return (C) get(key);
+    }
+
+    public static boolean hasExist(Object key) {
+        Objects.requireNonNull(key, "key can not be null");
+
+        Map holder = THREAD_LOCAL_VARIABLE.get();
+
+        return holder.containsKey(key);
+    }
+
+    public static boolean hasMatch(Object key, Object value) {
+        Objects.requireNonNull(key, "key can not be null");
+        Objects.requireNonNull(value, "value can not be null");
+
+        Map holder = THREAD_LOCAL_VARIABLE.get();
+
+        return holder.containsKey(key) && holder.containsValue(value);
     }
 
     public static void remove(Object key) {
