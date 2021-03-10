@@ -34,7 +34,7 @@ public class ContextHolder {
 
         THREAD_LOCAL_VARIABLE.set(holder);
 
-        LOGGER.debug("[CONTEXT-HOLDER] key=【{}】,value=【{}】 binded.", key, JSON.toJSONString(value));
+        LOGGER.debug("[CONTEXT-HOLDER] key=[{}],value=[{}] binded.", key, JSON.toJSONString(value));
     }
 
     public static Object getLocal(Object key) {
@@ -44,28 +44,12 @@ public class ContextHolder {
 
         Object value = THREAD_LOCAL_VARIABLE.get().get(key);
 
-        LOGGER.debug("[CONTEXT-HOLDER] key=【{}】,value=【{}】 getted.", key, JSON.toJSONString(value));
+        LOGGER.debug("[CONTEXT-HOLDER] key=[{}],value=[{}] getted.", key, JSON.toJSONString(value));
         return value;
     }
 
     public static void remove(Object key) {
         THREAD_LOCAL_VARIABLE.get().remove(key);
-    }
-
-    public static void bindRequest(Object value) {
-        bindLocal(REQUEST_PARAM, value);
-    }
-
-    public static void bindResponse(Object value) {
-        bindLocal(RESPONSE_PARAM, value);
-    }
-
-    public static void bindTransmit(Object value) {
-        bindLocal(TRANSMIT_PARAM, value);
-    }
-
-    public static Object getTransmit() {
-        return getLocal(TRANSMIT_PARAM);
     }
 
     public static void clear() {

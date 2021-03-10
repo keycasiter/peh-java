@@ -1,4 +1,4 @@
-package com.github.peh.state;
+package com.github.peh.enums;
 
 /**
  * @author: <a href=mailto:keycasiter@qq.com>guanjian</a>

@@ -1,7 +1,7 @@
 package com.github.peh.context;
 
 import com.github.peh.executor.IExecutor;
-import com.github.peh.state.LifeCycleEnums;
+import com.github.peh.enums.LifeCycleEnums;
 import com.github.peh.util.KeyGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,7 @@ public class ExecutorContextHolder extends ContextHolder {
     public static boolean isTerminate(IExecutor executor) {
         String terminateKey = KeyGenerator.genExecutorTerminateKey(executor);
         Object terminateValue = ContextHolder.getLocal(terminateKey);
-        LOGGER.debug("[EXECUTOR-STATUS-CHECK] executor terminate key=【{}】 status=【{}】.",
+        LOGGER.debug("[EXECUTOR-STATUS-CHECK] executor terminate key=[{}] status=[{}].",
                 terminateKey,
                 (Boolean) Optional.ofNullable(terminateValue).orElse(false)
                         ? LifeCycleEnums.STOP.getStage() :
@@ -37,7 +37,7 @@ public class ExecutorContextHolder extends ContextHolder {
         String terminateKey = KeyGenerator.genExecutorTerminateKey(executor);
         ContextHolder.bindLocal(terminateKey, Boolean.TRUE);
         ContextHolder.bindLocal(KeyGenerator.genExecutorTraceMarkKey(), handleNode);
-        LOGGER.debug("[EXECUTOR-STATUS-STOP] executor terminate=【{}】 stop , handle node=【{}】", terminateKey, handleNode);
+        LOGGER.debug("[EXECUTOR-STATUS-STOP] executor terminate=[{}] stop , handle node=[{}]", terminateKey, handleNode);
     }
 
     public static void resume(IExecutor executor) {
@@ -48,6 +48,6 @@ public class ExecutorContextHolder extends ContextHolder {
         String terminateKey = KeyGenerator.genExecutorTerminateKey(executor);
         ContextHolder.remove(terminateKey);
         ContextHolder.remove(KeyGenerator.genExecutorTraceMarkKey());
-        LOGGER.debug("[EXECUTOR-STATUS-RESUME] executor terminate=【{}】 resume , handle node=【{}】", terminateKey, handleNode);
+        LOGGER.debug("[EXECUTOR-STATUS-RESUME] executor terminate=[{}] resume , handle node=[{}]", terminateKey, handleNode);
     }
 }

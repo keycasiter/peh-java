@@ -1,7 +1,9 @@
-package com.github.peh.processor;
+package com.github.peh;
 
+import com.github.peh.context.ParamContextHolder;
 import com.github.peh.exception.ConfigurationException;
 import com.github.peh.handler.IHandler;
+import com.github.peh.processor.BaseProcessor;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +14,7 @@ import java.util.Objects;
 /**
  * @author: <a href=mailto:keycasiter@qq.com>guanjian</a>
  * @date: 2020/07/10 13:49
- * @description: 流程处理器
+ * @description: PEH引擎
  */
 public class ProcessorEngine extends BaseProcessor {
 
@@ -31,9 +33,18 @@ public class ProcessorEngine extends BaseProcessor {
                 break;
             }
 
-            LOGGER.debug("[ProcessorEngine] engine is running , current processor is 【{}】", processor.getProcessorName());
+            LOGGER.debug("[ProcessorEngine] engine is running , current processor is [{}]", processor.getProcessorName());
             processor.process();
         }
+    }
+
+    @Override
+    public Object process(Object request) {
+        ParamContextHolder.bindRequest(request);
+
+        process();
+
+        return ParamContextHolder.getResponse();
     }
 
     public static final class Builder {
@@ -44,8 +55,22 @@ public class ProcessorEngine extends BaseProcessor {
         private Builder() {
         }
 
-        public static Builder aBaseProcessor() {
+        public static Builder aPehEngine() {
             return new Builder();
+        }
+
+        //param method
+
+        public Builder request(Object request) {
+            Objects.requireNonNull(request, "request can not be null");
+            ParamContextHolder.bindRequest(request);
+            return this;
+        }
+
+        public Builder response(Object response) {
+            Objects.requireNonNull(response, "response can not be null");
+            ParamContextHolder.bindResponse(response);
+            return this;
         }
 
         //processor method
@@ -113,8 +138,10 @@ public class ProcessorEngine extends BaseProcessor {
         }
 
         public ProcessorEngine build() {
-            Objects.requireNonNull(this.processors, "processors can not be null");
-
+            //check
+            if (!ParamContextHolder.check()) {
+                throw new ConfigurationException("please check request param or response param setting in processorEngine.");
+            }
             if (this.processors.size() == 0) {
                 throw new ConfigurationException("processors can not be empty");
             }

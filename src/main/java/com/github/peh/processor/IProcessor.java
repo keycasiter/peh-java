@@ -1,8 +1,5 @@
 package com.github.peh.processor;
 
-import com.github.peh.executor.IExecutor;
-import com.github.peh.executor.SerialExecutor;
-
 /**
  * @author: <a href=mailto:keycasiter@qq.com>guanjian</a>
  * @date: 2020/07/08 10:17
@@ -19,4 +16,12 @@ public interface IProcessor {
      * 处理方法
      */
     void process();
+
+    /**
+     * 处理方法
+     *
+     * @param request 入参
+     * @return response 出参
+     */
+    Object process(Object request);
 }

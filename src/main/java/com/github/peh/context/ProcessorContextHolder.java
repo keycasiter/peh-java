@@ -1,6 +1,6 @@
 package com.github.peh.context;
 
-import com.github.peh.state.LifeCycleEnums;
+import com.github.peh.enums.LifeCycleEnums;
 import com.github.peh.util.KeyGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,7 @@ public class ProcessorContextHolder extends ContextHolder {
 
     public static boolean isTerminate() {
         Object terminate = ContextHolder.getLocal(PROCESSOR_TERMINATE);
-        LOGGER.debug("[PROCESSOR-STATUS-CHECK] processor terminate key=【{}】 status=【{}】.",
+        LOGGER.debug("[PROCESSOR-STATUS-CHECK] processor terminate key=[{}] status=[{}].",
                 PROCESSOR_TERMINATE,
                 (Boolean) Optional.ofNullable(terminate).orElse(false)
                         ? LifeCycleEnums.STOP.getStage()
@@ -36,7 +36,7 @@ public class ProcessorContextHolder extends ContextHolder {
     public static void stop(String handleNode) {
         ContextHolder.bindLocal(PROCESSOR_TERMINATE, Boolean.TRUE);
         ContextHolder.bindLocal(KeyGenerator.genProcessorTraceMarkKey(), handleNode);
-        LOGGER.debug("[PROCESSOR-STATUS-STOP] processor terminate=【{}】 works , handle node=【{}】", PROCESSOR_TERMINATE, handleNode);
+        LOGGER.debug("[PROCESSOR-STATUS-STOP] processor terminate=[{}] works , handle node=[{}]", PROCESSOR_TERMINATE, handleNode);
     }
 
     public static void resume() {
@@ -46,6 +46,6 @@ public class ProcessorContextHolder extends ContextHolder {
     public static void resume(String handleNode) {
         ContextHolder.remove(PROCESSOR_TERMINATE);
         ContextHolder.remove(KeyGenerator.genProcessorTraceMarkKey());
-        LOGGER.debug("[PROCESSOR-STATUS-RESUME] processor terminate=【{}】 resume , handle node=【{}】", PROCESSOR_TERMINATE, handleNode);
+        LOGGER.debug("[PROCESSOR-STATUS-RESUME] processor terminate=[{}] resume , handle node=[{}]", PROCESSOR_TERMINATE, handleNode);
     }
 }

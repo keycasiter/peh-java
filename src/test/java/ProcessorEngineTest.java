@@ -1,14 +1,15 @@
+import com.alibaba.fastjson.JSON;
+import com.github.peh.ProcessorEngine;
 import com.github.peh.context.ExecutorContextHolder;
-import com.github.peh.context.ProcessorContextHolder;
+import com.github.peh.context.ParamContextHolder;
 import com.github.peh.handler.AbstractHandler;
 import com.github.peh.handler.IHandler;
 import com.github.peh.processor.BaseProcessor;
-import com.github.peh.processor.ProcessorEngine;
 
 /**
  * created by guanjian on 2021/2/25 17:39
  */
-public class ProcessorTest {
+public class ProcessorEngineTest {
 
     public static void main(String[] args) {
 
@@ -27,13 +28,17 @@ public class ProcessorTest {
             @Override
             public void handle() {
                 System.out.println("handler - 2");
+                ParamContextHolder.getResponse(ResponseObject.class).setPassword("123123123");
             }
         };
 
         IHandler handler3 = new AbstractHandler() {
             @Override
             public void handle() {
+
                 System.out.println("handler - 3");
+                RequestObject request = ParamContextHolder.getRequest(RequestObject.class);
+                System.out.println(request.getUserName());
             }
         };
 
@@ -45,26 +50,29 @@ public class ProcessorTest {
             }
         };
 
+        //param
+        RequestObject request = new RequestObject();
+        request.setUserName("zhangsan");
+
+        ResponseObject response = new ResponseObject();
+
 
         ProcessorEngine processorEngine = ProcessorEngine.Builder
-                .aBaseProcessor()
+                .aPehEngine()
+                //param
+                .request(request)
+                .response(response)
                 //processor - 1
                 .appendProcessor(processor1)
-                .appendHandler(handler1)
-                .preposeHandler(handler2)
-                .preposeHandler(handler4)
-                .preposeHandler(handler3)
-                .parallel()
-                //processor - 2
+                .appendHandler(handler3)
+                .appendHandler(handler4)
                 .appendHandler(handler2)
-                //processor - 3
-                .appendProcessor()
-                .appendHandler(handler1)
-                .appendHandler(handler1)
-                .appendHandler(handler1)
                 .build();
 
-        processorEngine.process();
+        ResponseObject responseObject = (ResponseObject) processorEngine.process(request);
 
+//        processorEngine.process();
+
+        System.out.println(JSON.toJSONString(responseObject));
     }
 }

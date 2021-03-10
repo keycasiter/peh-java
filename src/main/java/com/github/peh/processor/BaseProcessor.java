@@ -1,5 +1,6 @@
 package com.github.peh.processor;
 
+import com.github.peh.context.ParamContextHolder;
 import com.github.peh.context.ProcessorContextHolder;
 import com.github.peh.executor.AbstractExecutor;
 import com.github.peh.executor.ParallelExecutor;
@@ -49,8 +50,19 @@ public class BaseProcessor implements IProcessor {
     @Override
     public void process() {
         Objects.requireNonNull(this.executor, "executor can not be null , processor needs it to work.");
-        LOGGER.debug("[PROCESSOR-PROCESS] processorName=【{}】 , executorType=【{}】 , executorName=【{}】", processorName, executor.getExecutorType(), executor.getExecutorName());
+        LOGGER.debug("[PROCESSOR-PROCESS] processorName=[{}] , executorType=[{}] , executorName=[{}]", processorName, executor.getExecutorType(), executor.getExecutorName());
         executor.execute();
+    }
+
+    @Override
+    public Object process(Object request) {
+        ParamContextHolder.bindRequest(request);
+
+        Objects.requireNonNull(this.executor, "executor can not be null , processor needs it to work.");
+        LOGGER.debug("[PROCESSOR-PROCESS] processorName=[{}] , executorType=[{}] , executorName=[{}]", processorName, executor.getExecutorType(), executor.getExecutorName());
+        executor.execute();
+
+        return ParamContextHolder.getResponse();
     }
 
     public boolean isTerminate() {
