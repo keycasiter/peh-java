@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.LinkedList;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author: <a href=mailto:keycasiter@qq.com>guanjian</a>
@@ -94,6 +95,19 @@ public class ProcessorEngine extends BaseProcessor {
             return this;
         }
 
+        public Builder appendProcessors(LinkedList<BaseProcessor> processors) {
+            Objects.requireNonNull(processors, "processor can not be null");
+            if (0 == processors.size()) throw new ConfigurationException("processor can not be empty.");
+
+            Optional.ofNullable(processors)
+                    .orElse(Lists.newLinkedList())
+                    .forEach(processor -> {
+                        appendProcessor(processor);
+                    });
+
+            return this;
+        }
+
         public Builder preposeProcessor() {
             this.curProcessor = new BaseProcessor();
             this.processors.addFirst(this.curProcessor);
@@ -104,6 +118,19 @@ public class ProcessorEngine extends BaseProcessor {
             Objects.requireNonNull(processor, "processor can not be null");
             this.curProcessor = processor;
             this.processors.addFirst(processor);
+            return this;
+        }
+
+        public Builder preposeProcessors(LinkedList<BaseProcessor> processors) {
+            Objects.requireNonNull(processors, "processor can not be null");
+            if (0 == processors.size()) throw new ConfigurationException("processor can not be empty.");
+
+            Optional.ofNullable(processors)
+                    .orElse(Lists.newLinkedList())
+                    .forEach(processor -> {
+                        preposeProcessor(processor);
+                    });
+
             return this;
         }
 
