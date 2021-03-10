@@ -63,7 +63,7 @@ public enum LifeCycleEnums {
     }
 
 
-    public static boolean getByCode(String stage) {
+    public static boolean check(String stage) {
         boolean res = false;
 
         if (null == stage || 0 == stage.length()) return res;
