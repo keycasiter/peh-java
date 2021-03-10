@@ -2,8 +2,6 @@ package com.github.peh.context;
 
 import java.util.Optional;
 
-import static com.github.peh.constants.Constants.*;
-
 /**
  * @author: <a href=mailto:keycasiter@qq.com>guanjian</a>
  * @date: 2021/03/09 9:59
@@ -11,6 +9,16 @@ import static com.github.peh.constants.Constants.*;
  * @copyright 参数环境变量
  */
 public class ParamContextHolder extends ContextHolder {
+
+    /**
+     * 入参对象
+     */
+    public final static String REQUEST_PARAM = "REQUEST_PARAM";
+
+    /**
+     * 出参对象
+     */
+    public final static String RESPONSE_PARAM = "RESPONSE_PARAM";
 
     public static void bindRequest(Object value) {
         put(REQUEST_PARAM, value);

@@ -1,9 +1,7 @@
-package com.github.peh.enums;
+package com.github.peh.lifeCycle;
 
 /**
- * @author: <a href=mailto:keycasiter@qq.com>guanjian</a>
- * @date: 2021/02/26 14:07
- * @description: 声明周期枚举
+ * created by guanjian on 2021/3/10 16:52
  */
 public enum LifeCycleEnums {
     /**
@@ -25,11 +23,6 @@ public enum LifeCycleEnums {
      * 完成
      */
     FINISH("finish", "完成"),
-
-    /**
-     * 挂起
-     */
-    HALL("hall", "挂起"),
 
     /**
      * 异常
@@ -67,5 +60,17 @@ public enum LifeCycleEnums {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+
+    public static boolean getByCode(String stage) {
+        boolean res = false;
+
+        if (null == stage || 0 == stage.length()) return res;
+
+        for (LifeCycleEnums each : LifeCycleEnums.values()) {
+            if (stage.equals(each.getStage())) return true;
+        }
+        return res;
     }
 }

@@ -34,7 +34,7 @@ public class ContextHolder {
 
         THREAD_LOCAL_VARIABLE.set(holder);
 
-        LOGGER.debug("[CONTEXT-HOLDER] key=[{}],value=[{}] setted.", key, JSON.toJSONString(value));
+        LOGGER.debug("[CONTEXT-HOLDER] variable key=[{}],value=[{}] setted.", key, JSON.toJSONString(value));
     }
 
     public static void putIfAbsent(Object key, Object value) {
@@ -47,7 +47,7 @@ public class ContextHolder {
 
         THREAD_LOCAL_VARIABLE.set(holder);
 
-        LOGGER.debug("[CONTEXT-HOLDER] key=[{}],value=[{}] setted.", key, JSON.toJSONString(value));
+        LOGGER.debug("[CONTEXT-HOLDER] variable key=[{}],value=[{}] setted.", key, JSON.toJSONString(value));
     }
 
     public static void putAll(Map<Object, Object> map) {
@@ -60,7 +60,7 @@ public class ContextHolder {
 
         THREAD_LOCAL_VARIABLE.set(holder);
 
-        LOGGER.debug("[CONTEXT-HOLDER] map=[{}] setted.", JSON.toJSONString(map));
+        LOGGER.debug("[CONTEXT-HOLDER] variable map=[{}] setted.", JSON.toJSONString(map));
     }
 
     public static Object get(Object key) {
@@ -70,7 +70,7 @@ public class ContextHolder {
 
         Object value = THREAD_LOCAL_VARIABLE.get().get(key);
 
-        LOGGER.debug("[CONTEXT-HOLDER] key=[{}],value=[{}] getted.", key, JSON.toJSONString(value));
+        LOGGER.debug("[CONTEXT-HOLDER] variable key=[{}],value=[{}] getted.", key, JSON.toJSONString(value));
         return value;
     }
 

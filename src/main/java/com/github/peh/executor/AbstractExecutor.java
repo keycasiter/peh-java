@@ -94,4 +94,50 @@ public abstract class AbstractExecutor implements IExecutor {
     public void addFirst(IHandler handler) {
         handlers.addFirst(handler);
     }
+
+    enum ExecutorTypeEnums {
+
+        /**
+         * 串行化
+         */
+        SERIAL("serial", "串行化"),
+
+        /**
+         * 并行化
+         */
+        PARALLEL("parallel", "并行化"),
+
+        ;
+
+        /**
+         * 类型
+         */
+        private String type;
+
+        /**
+         * 描述
+         */
+        private String desc;
+
+        ExecutorTypeEnums(String type, String desc) {
+            this.type = type;
+            this.desc = desc;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+
+        public void setDesc(String desc) {
+            this.desc = desc;
+        }
+    }
 }

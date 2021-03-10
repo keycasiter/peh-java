@@ -1,7 +1,7 @@
 package com.github.peh.context;
 
-import com.github.peh.enums.LifeCycleEnums;
 import com.github.peh.executor.IExecutor;
+import com.github.peh.lifeCycle.LifeCycleEnums;
 import com.github.peh.util.KeyGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

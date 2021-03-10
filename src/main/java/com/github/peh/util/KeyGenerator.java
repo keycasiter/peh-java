@@ -14,13 +14,32 @@ public class KeyGenerator {
     private final static Logger LOGGER = LoggerFactory.getLogger(KeyGenerator.class);
 
     /**
+     * 流程器开关
+     */
+    public static String PROCESSOR_BLOCK = "PROCESSOR_BLOCK";
+
+    /**
+     * 流程器执行轨迹标记
+     */
+    public static String PROCESSOR_TRACE_MARK = "PROCESSOR_TRACE_MARK";
+
+    /**
+     * 执行器开关
+     */
+    public static String EXECUTOR_BLOCK = "EXECUTOR_BLOCK";
+    /**
+     * 执行器执行轨迹标记
+     */
+    public static String EXECUTOR_TRACE_MARK = "EXECUTOR_TRACE_MARK";
+
+    /**
      * 生成Executor Terminate Key
      *
      * @param uniqueObj
      * @return
      */
     public static String genExecutorTerminateKey(Object uniqueObj) {
-        return Constants.EXECUTOR_BLOCK + Constants.LINE + uniqueObj.hashCode();
+        return EXECUTOR_BLOCK + Constants.LINE + uniqueObj.hashCode();
     }
 
     /**
@@ -30,7 +49,7 @@ public class KeyGenerator {
      * @return
      */
     public static String genExecutorTraceMarkKey() {
-        return Constants.EXECUTOR_TRACE_MARK;
+        return EXECUTOR_TRACE_MARK;
     }
 
     /**
@@ -40,7 +59,7 @@ public class KeyGenerator {
      * @return
      */
     public static String genProcessorTerminateKey(Object uniqueObj) {
-        return Constants.PROCESSOR_BLOCK + Constants.LINE + uniqueObj.hashCode();
+        return PROCESSOR_BLOCK + Constants.LINE + uniqueObj.hashCode();
     }
 
     /**
@@ -49,7 +68,7 @@ public class KeyGenerator {
      * @return
      */
     public static String genProcessorTraceMarkKey() {
-        return Constants.PROCESSOR_TRACE_MARK;
+        return PROCESSOR_TRACE_MARK;
     }
 
 }

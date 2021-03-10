@@ -1,5 +1,6 @@
 import com.alibaba.fastjson.JSON;
 import com.github.peh.ProcessorEngine;
+import com.github.peh.ProcessorEngineBuilder;
 import com.github.peh.context.ExecutorContextHolder;
 import com.github.peh.context.ParamContextHolder;
 import com.github.peh.handler.AbstractHandler;
@@ -67,8 +68,7 @@ public class ProcessorEngineTest {
         ResponseObject response = new ResponseObject();
 
 
-        ProcessorEngine processorEngine = ProcessorEngine.Builder
-                .aProcessorEngine()
+        ProcessorEngine processorEngine = ProcessorEngineBuilder.builder()
                 //param
                 .request(request)
                 .response(response)
