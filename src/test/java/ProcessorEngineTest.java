@@ -54,9 +54,9 @@ public class ProcessorEngineTest {
                 System.out.println(getVariable(certNoKey));
 
                 //停止Executor
-//                unableExecutor(processor1.getExecutor());
+                unableExecutor(processor1.getExecutor());
                 //停止Processor
-                unableProcessor();
+//                unableProcessor();
             }
         };
 
@@ -68,7 +68,7 @@ public class ProcessorEngineTest {
 
 
         ProcessorEngine processorEngine = ProcessorEngine.Builder
-                .aPehEngine()
+                .aProcessorEngine()
                 //param
                 .request(request)
                 .response(response)

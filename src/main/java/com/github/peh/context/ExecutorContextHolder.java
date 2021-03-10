@@ -1,7 +1,7 @@
 package com.github.peh.context;
 
-import com.github.peh.executor.IExecutor;
 import com.github.peh.enums.LifeCycleEnums;
+import com.github.peh.executor.IExecutor;
 import com.github.peh.util.KeyGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,11 +22,11 @@ public class ExecutorContextHolder extends ContextHolder {
         Object blockValue = ContextHolder.get(blockKey);
         LOGGER.debug("[EXECUTOR-STATUS-CHECK] executor block key=[{}] status=[{}].",
                 blockKey,
-                (Boolean) Optional.ofNullable(blockValue).orElse(false)
-                        ? LifeCycleEnums.STOP.getStage() :
-                        LifeCycleEnums.RUNNING.getStage()
+                (Boolean) Optional.ofNullable(blockValue).orElse(Boolean.TRUE)
+                        ? LifeCycleEnums.RUNNING.getStage() :
+                        LifeCycleEnums.STOP.getStage()
         );
-        return (Boolean) Optional.ofNullable(blockValue).orElse(false);
+        return (Boolean) Optional.ofNullable(blockValue).orElse(Boolean.TRUE);
     }
 
     public static void unable(IExecutor executor) {
@@ -35,7 +35,7 @@ public class ExecutorContextHolder extends ContextHolder {
 
     public static void unable(IExecutor executor, String handleNode) {
         String blockKey = KeyGenerator.genExecutorTerminateKey(executor);
-        ContextHolder.put(blockKey, Boolean.TRUE);
+        ContextHolder.put(blockKey, Boolean.FALSE);
         ContextHolder.put(KeyGenerator.genExecutorTraceMarkKey(), handleNode);
         LOGGER.debug("[EXECUTOR-STATUS-unable] executor block=[{}] unable , handle node=[{}]", blockKey, handleNode);
     }
@@ -46,7 +46,7 @@ public class ExecutorContextHolder extends ContextHolder {
 
     public static void enable(IExecutor executor, String handleNode) {
         String blockKey = KeyGenerator.genExecutorTerminateKey(executor);
-        ContextHolder.remove(blockKey);
+        ContextHolder.put(blockKey, Boolean.TRUE);
         ContextHolder.remove(KeyGenerator.genExecutorTraceMarkKey());
         LOGGER.debug("[EXECUTOR-STATUS-enable] executor block=[{}] enable , handle node=[{}]", blockKey, handleNode);
     }

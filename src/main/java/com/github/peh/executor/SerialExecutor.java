@@ -36,7 +36,7 @@ public class SerialExecutor extends AbstractExecutor {
         Optional.ofNullable(handlers)
                 .orElse(Lists.newLinkedList())
                 .forEach(handler -> {
-                    if (available(this)) {
+                    if (!available(this)) {
                         LOGGER.debug("[SERIAL-EXECUTOR] block is unable status , it will unable all handlers.");
                         return;
                     }

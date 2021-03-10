@@ -22,11 +22,11 @@ public class ProcessorContextHolder extends ContextHolder {
         Object block = ContextHolder.get(PROCESSOR_BLOCK);
         LOGGER.debug("[PROCESSOR-STATUS-CHECK] processor block key=[{}] status=[{}].",
                 PROCESSOR_BLOCK,
-                (Boolean) Optional.ofNullable(block).orElse(false)
-                        ? LifeCycleEnums.STOP.getStage()
-                        : LifeCycleEnums.RUNNING.getStage()
+                (Boolean) Optional.ofNullable(block).orElse(Boolean.TRUE)
+                        ? LifeCycleEnums.RUNNING.getStage()
+                        : LifeCycleEnums.STOP.getStage()
         );
-        return (Boolean) Optional.ofNullable(block).orElse(false);
+        return (Boolean) Optional.ofNullable(block).orElse(Boolean.TRUE);
     }
 
     public static void unable() {
@@ -34,9 +34,9 @@ public class ProcessorContextHolder extends ContextHolder {
     }
 
     public static void unable(String handleNode) {
-        ContextHolder.put(PROCESSOR_BLOCK, Boolean.TRUE);
+        ContextHolder.put(PROCESSOR_BLOCK, Boolean.FALSE);
         ContextHolder.put(KeyGenerator.genProcessorTraceMarkKey(), handleNode);
-        LOGGER.debug("[PROCESSOR-STATUS-unable] processor block=[{}] works , handle node=[{}]", PROCESSOR_BLOCK, handleNode);
+        LOGGER.debug("[PROCESSOR-STATUS-enable] processor block=[{}] enable , handle node=[{}]", PROCESSOR_BLOCK, handleNode);
     }
 
     public static void enable() {
@@ -44,8 +44,8 @@ public class ProcessorContextHolder extends ContextHolder {
     }
 
     public static void enable(String handleNode) {
-        ContextHolder.remove(PROCESSOR_BLOCK);
+        ContextHolder.put(PROCESSOR_BLOCK, Boolean.TRUE);
         ContextHolder.remove(KeyGenerator.genProcessorTraceMarkKey());
-        LOGGER.debug("[PROCESSOR-STATUS-enable] processor block=[{}] enable , handle node=[{}]", PROCESSOR_BLOCK, handleNode);
+        LOGGER.debug("[PROCESSOR-STATUS-unable] processor block=[{}] works , handle node=[{}]", PROCESSOR_BLOCK, handleNode);
     }
 }

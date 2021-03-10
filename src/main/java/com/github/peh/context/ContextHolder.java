@@ -1,6 +1,7 @@
 package com.github.peh.context;
 
 import com.alibaba.fastjson.JSON;
+import com.github.peh.exception.ConfigurationException;
 import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,7 @@ public class ContextHolder {
 
 
     public static void put(Object key, Object value) {
-        Objects.requireNonNull(key, "key can not be null");
+        Objects.requireNonNull(key, "key can not be null.");
 
         Map holder = THREAD_LOCAL_VARIABLE.get();
 
@@ -33,7 +34,32 @@ public class ContextHolder {
 
         THREAD_LOCAL_VARIABLE.set(holder);
 
-        LOGGER.debug("[CONTEXT-HOLDER] key=[{}],value=[{}] binded.", key, JSON.toJSONString(value));
+        LOGGER.debug("[CONTEXT-HOLDER] key=[{}],value=[{}] setted.", key, JSON.toJSONString(value));
+    }
+
+    public static void putIfAbsent(Object key, Object value) {
+        Objects.requireNonNull(key, "key can not be null.");
+
+        Map holder = THREAD_LOCAL_VARIABLE.get();
+
+        holder.putIfAbsent(key, value);
+
+        THREAD_LOCAL_VARIABLE.set(holder);
+
+        LOGGER.debug("[CONTEXT-HOLDER] key=[{}],value=[{}] setted.", key, JSON.toJSONString(value));
+    }
+
+    public static void putAll(Map<Object, Object> map) {
+        Objects.requireNonNull(map, "map can not be null.");
+        if (0 == map.size()) throw new ConfigurationException("map can not be empty.");
+
+        Map holder = THREAD_LOCAL_VARIABLE.get();
+
+        holder.putAll(map);
+
+        THREAD_LOCAL_VARIABLE.set(holder);
+
+        LOGGER.debug("[CONTEXT-HOLDER] map=[{}] setted.", JSON.toJSONString(map));
     }
 
     public static Object get(Object key) {
@@ -52,7 +78,7 @@ public class ContextHolder {
     }
 
     public static boolean hasExist(Object key) {
-        Objects.requireNonNull(key, "key can not be null");
+        Objects.requireNonNull(key, "key can not be null.");
 
         Map holder = THREAD_LOCAL_VARIABLE.get();
 
@@ -60,8 +86,8 @@ public class ContextHolder {
     }
 
     public static boolean hasMatch(Object key, Object value) {
-        Objects.requireNonNull(key, "key can not be null");
-        Objects.requireNonNull(value, "value can not be null");
+        Objects.requireNonNull(key, "key can not be null.");
+        Objects.requireNonNull(value, "value can not be null.");
 
         Map holder = THREAD_LOCAL_VARIABLE.get();
 

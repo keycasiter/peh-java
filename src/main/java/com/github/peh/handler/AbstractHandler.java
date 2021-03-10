@@ -1,9 +1,12 @@
 package com.github.peh.handler;
 
+import com.github.peh.constants.Constants;
 import com.github.peh.context.ExecutorContextHolder;
 import com.github.peh.context.ParamContextHolder;
 import com.github.peh.context.ProcessorContextHolder;
 import com.github.peh.executor.IExecutor;
+
+import java.util.Map;
 
 /**
  * @author: <a href=mailto:keycasiter@qq.com>guanjian</a>
@@ -27,8 +30,19 @@ public abstract class AbstractHandler implements IHandler {
 
     //context variable method
 
+    /**
+     * variable
+     */
     public static void setVariable(Object key, Object value) {
         ParamContextHolder.put(key, value);
+    }
+
+    public static void setVariableIfAbsent(Object key, Object value) {
+        ParamContextHolder.putIfAbsent(key, value);
+    }
+
+    public static void setVariable(Map<Object,Object> map) {
+        ParamContextHolder.putAll(map);
     }
 
     public static Object getVariable(Object key) {
@@ -38,6 +52,29 @@ public abstract class AbstractHandler implements IHandler {
     public static <C> C getVariable(Object key, Class<C> clazz) {
         return ParamContextHolder.get(key, clazz);
     }
+
+    /**
+     * request
+     */
+    public static Object getRequest() {
+        return ParamContextHolder.get(Constants.REQUEST_PARAM);
+    }
+
+    public static <C> C getRequest(Class<C> clazz) {
+        return (C) ParamContextHolder.get(Constants.REQUEST_PARAM);
+    }
+
+    /**
+     * response
+     */
+    public static Object getResponse() {
+        return ParamContextHolder.get(Constants.RESPONSE_PARAM);
+    }
+
+    public static <C> C getResponse(Class<C> clazz) {
+        return (C) ParamContextHolder.get(Constants.RESPONSE_PARAM);
+    }
+
 
     //context executor method
 

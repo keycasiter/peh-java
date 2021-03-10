@@ -30,7 +30,7 @@ public class ProcessorEngine extends BaseProcessor {
         //processors must keep execute serially by order
         for (BaseProcessor processor : processors) {
             if (!available()) {
-                LOGGER.debug("[ProcessorEngine] engine has unableped , it will unable all processors.");
+                LOGGER.debug("[ProcessorEngine] engine has stopped , it will unable all processors.");
                 break;
             }
 
@@ -56,7 +56,7 @@ public class ProcessorEngine extends BaseProcessor {
         private Builder() {
         }
 
-        public static Builder aPehEngine() {
+        public static Builder aProcessorEngine() {
             return new Builder();
         }
 
