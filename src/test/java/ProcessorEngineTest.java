@@ -13,6 +13,8 @@ public class ProcessorEngineTest {
 
     public static void main(String[] args) {
 
+        String certNoKey = "certNo";
+
         BaseProcessor processor1 = new BaseProcessor("processor - 1");
 
         BaseProcessor processor2 = new BaseProcessor("processor - 2");
@@ -29,16 +31,19 @@ public class ProcessorEngineTest {
             public void handle() {
                 System.out.println("handler - 2");
                 ParamContextHolder.getResponse(ResponseObject.class).setPassword("123123123");
+                System.out.println(getVariable(certNoKey));;
+                ParamContextHolder.getResponse(ResponseObject.class).setCertNo(getVariable(certNoKey,String.class));
             }
         };
 
         IHandler handler3 = new AbstractHandler() {
             @Override
             public void handle() {
-
                 System.out.println("handler - 3");
                 RequestObject request = ParamContextHolder.getRequest(RequestObject.class);
                 System.out.println(request.getUserName());
+
+                setVariable(certNoKey,"13020202020200");
             }
         };
 
@@ -46,7 +51,12 @@ public class ProcessorEngineTest {
             @Override
             public void handle() {
                 System.out.println("handler - 4");
-                ExecutorContextHolder.unable(processor1.getExecutor());
+                System.out.println(getVariable(certNoKey));
+
+                //停止Executor
+//                unableExecutor(processor1.getExecutor());
+                //停止Processor
+                unableProcessor();
             }
         };
 
@@ -66,6 +76,8 @@ public class ProcessorEngineTest {
                 .appendProcessor(processor1)
                 .appendHandler(handler3)
                 .appendHandler(handler4)
+                .appendHandler(handler1)
+                .appendProcessor()
                 .appendHandler(handler2)
                 .build();
 

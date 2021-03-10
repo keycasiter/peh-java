@@ -36,14 +36,6 @@ public class ParamContextHolder extends ContextHolder {
         return (D) get(RESPONSE_PARAM);
     }
 
-    public static void bindDefault(Object value) {
-        put(DEFAULT, value);
-    }
-
-    public static Object getDefault() {
-        return get(DEFAULT);
-    }
-
     public static boolean check() {
         return Optional.ofNullable(get(REQUEST_PARAM)).isPresent()
                 &&

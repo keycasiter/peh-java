@@ -20,7 +20,7 @@ public class KeyGenerator {
      * @return
      */
     public static String genExecutorTerminateKey(Object uniqueObj) {
-        return Constants.EXECUTOR_TERMINATE + Constants.LINE + uniqueObj.hashCode();
+        return Constants.EXECUTOR_BLOCK + Constants.LINE + uniqueObj.hashCode();
     }
 
     /**
@@ -40,7 +40,7 @@ public class KeyGenerator {
      * @return
      */
     public static String genProcessorTerminateKey(Object uniqueObj) {
-        return Constants.PROCESSOR_TERMINATE + Constants.LINE + uniqueObj.hashCode();
+        return Constants.PROCESSOR_BLOCK + Constants.LINE + uniqueObj.hashCode();
     }
 
     /**

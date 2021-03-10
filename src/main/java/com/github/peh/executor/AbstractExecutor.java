@@ -48,7 +48,7 @@ public abstract class AbstractExecutor implements IExecutor {
     }
 
     public boolean available(IExecutor executor) {
-        return ExecutorContextHolder.available(executor) || ProcessorContextHolder.available();
+        return ExecutorContextHolder.available(executor) && ProcessorContextHolder.available();
     }
 
     public String getExecutorType() {

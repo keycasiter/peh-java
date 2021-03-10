@@ -19,7 +19,7 @@ public enum LifeCycleEnums {
     /**
      * 停止
      */
-    unable("unable", "停止"),
+    STOP("stop", "停止"),
 
     /**
      * 完成

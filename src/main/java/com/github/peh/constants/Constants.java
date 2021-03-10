@@ -25,12 +25,12 @@ public class Constants {
     /**
      * 流程器开关
      */
-    public static String PROCESSOR_TERMINATE = "PROCESSOR_TERMINATE";
+    public static String PROCESSOR_BLOCK = "PROCESSOR_BLOCK";
 
     /**
      * 执行器开关
      */
-    public static String EXECUTOR_TERMINATE = "EXECUTOR_TERMINATE";
+    public static String EXECUTOR_BLOCK = "EXECUTOR_BLOCK";
 
     /**
      * 流程器执行轨迹标记

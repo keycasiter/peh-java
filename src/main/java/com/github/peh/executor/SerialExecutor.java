@@ -37,7 +37,7 @@ public class SerialExecutor extends AbstractExecutor {
                 .orElse(Lists.newLinkedList())
                 .forEach(handler -> {
                     if (available(this)) {
-                        LOGGER.debug("[SERIAL-EXECUTOR] terminate is unable status , it will unable all handlers.");
+                        LOGGER.debug("[SERIAL-EXECUTOR] block is unable status , it will unable all handlers.");
                         return;
                     }
 

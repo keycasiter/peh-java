@@ -14,7 +14,7 @@ import java.util.Objects;
 /**
  * @author: <a href=mailto:keycasiter@qq.com>guanjian</a>
  * @date: 2020/07/10 13:49
- * @description: PEH引擎
+ * @description: 处理器引擎
  */
 public class ProcessorEngine extends BaseProcessor {
 
@@ -28,7 +28,7 @@ public class ProcessorEngine extends BaseProcessor {
 
         //processors must keep execute serially by order
         for (BaseProcessor processor : processors) {
-            if (available()) {
+            if (!available()) {
                 LOGGER.debug("[ProcessorEngine] engine has unableped , it will unable all processors.");
                 break;
             }
