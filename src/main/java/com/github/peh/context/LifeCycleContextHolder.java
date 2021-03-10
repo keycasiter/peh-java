@@ -23,6 +23,10 @@ public class LifeCycleContextHolder extends ContextHolder {
         put(LIFE_CYCLE, LifeCycleEnums.STOP.getStage());
     }
 
+    public static void afterReturning() {
+        put(LIFE_CYCLE, LifeCycleEnums.AFTER_RETURNING.getStage());
+    }
+
     public static void finish() {
         put(LIFE_CYCLE, LifeCycleEnums.FINISH.getStage());
     }
@@ -31,7 +35,11 @@ public class LifeCycleContextHolder extends ContextHolder {
         put(LIFE_CYCLE, LifeCycleEnums.EXCEPTION.getStage());
     }
 
+    public static void clear() {
+        remove(LIFE_CYCLE);
+    }
+
     public static LifeCycleEnums getLifeCycle() {
-        return LifeCycleEnums.getEnums(get(LIFE_CYCLE, String.class));
+        return LifeCycleEnums.getEnums(getOrDefault(LIFE_CYCLE, String.class, LifeCycleEnums.FINISH.getStage()));
     }
 }

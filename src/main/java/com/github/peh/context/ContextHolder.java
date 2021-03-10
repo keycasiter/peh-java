@@ -74,8 +74,23 @@ public class ContextHolder {
         return value;
     }
 
+    public static Object getOrDefault(Object key, Object defaultObj) {
+        if (!Optional.ofNullable(THREAD_LOCAL_VARIABLE.get()).isPresent()) {
+            return defaultObj;
+        }
+
+        Object value = THREAD_LOCAL_VARIABLE.get().getOrDefault(key, defaultObj);
+
+        LOGGER.debug("[CONTEXT-HOLDER] variable key=[{}],value=[{}] getted.", key, JSON.toJSONString(value));
+        return value;
+    }
+
     public static <C> C get(Object key, Class<C> clazz) {
         return (C) get(key);
+    }
+
+    public static <C> C getOrDefault(Object key, Class<C> clazz, Object defaultObj) {
+        return (C) getOrDefault(key, defaultObj);
     }
 
     public static boolean hasExist(Object key) {

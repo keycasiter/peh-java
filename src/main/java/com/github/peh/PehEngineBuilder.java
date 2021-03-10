@@ -13,55 +13,55 @@ import java.util.Optional;
 /**
  * created by guanjian on 2021/3/10 16:54
  */
-public final class ProcessorEngineBuilder {
+public final class PehEngineBuilder {
 
     protected LinkedList<BaseProcessor> processors = Lists.newLinkedList();
 
     volatile BaseProcessor curProcessor = null;
 
-    private ProcessorEngineBuilder() {
+    private PehEngineBuilder() {
     }
 
-    public static ProcessorEngineBuilder builder() {
-        return new ProcessorEngineBuilder();
+    public static PehEngineBuilder builder() {
+        return new PehEngineBuilder();
     }
 
     //param method
 
-    public ProcessorEngineBuilder request(Object request) {
+    public PehEngineBuilder request(Object request) {
         Objects.requireNonNull(request, "request can not be null");
-        ParamContextHolder.bindRequest(request);
+        ParamContextHolder.setRequest(request);
         return this;
     }
 
-    public ProcessorEngineBuilder response(Object response) {
+    public PehEngineBuilder response(Object response) {
         Objects.requireNonNull(response, "response can not be null");
-        ParamContextHolder.bindResponse(response);
+        ParamContextHolder.setResponse(response);
         return this;
     }
 
     //processor method
 
-    public ProcessorEngineBuilder processors(LinkedList<BaseProcessor> processors) {
+    public PehEngineBuilder processors(LinkedList<BaseProcessor> processors) {
         Objects.requireNonNull(processors, "processor can not be null");
         this.processors = processors;
         return this;
     }
 
-    public ProcessorEngineBuilder appendProcessor() {
+    public PehEngineBuilder appendProcessor() {
         this.curProcessor = new BaseProcessor();
         this.processors.addLast(this.curProcessor);
         return this;
     }
 
-    public ProcessorEngineBuilder appendProcessor(BaseProcessor processor) {
+    public PehEngineBuilder appendProcessor(BaseProcessor processor) {
         Objects.requireNonNull(processor, "processor can not be null");
         this.curProcessor = processor;
         this.processors.addLast(processor);
         return this;
     }
 
-    public ProcessorEngineBuilder appendProcessors(LinkedList<BaseProcessor> processors) {
+    public PehEngineBuilder appendProcessors(LinkedList<BaseProcessor> processors) {
         Objects.requireNonNull(processors, "processor can not be null");
         if (0 == processors.size()) throw new ConfigurationException("processor can not be empty.");
 
@@ -74,20 +74,20 @@ public final class ProcessorEngineBuilder {
         return this;
     }
 
-    public ProcessorEngineBuilder preposeProcessor() {
+    public PehEngineBuilder preposeProcessor() {
         this.curProcessor = new BaseProcessor();
         this.processors.addFirst(this.curProcessor);
         return this;
     }
 
-    public ProcessorEngineBuilder preposeProcessor(BaseProcessor processor) {
+    public PehEngineBuilder preposeProcessor(BaseProcessor processor) {
         Objects.requireNonNull(processor, "processor can not be null");
         this.curProcessor = processor;
         this.processors.addFirst(processor);
         return this;
     }
 
-    public ProcessorEngineBuilder preposeProcessors(LinkedList<BaseProcessor> processors) {
+    public PehEngineBuilder preposeProcessors(LinkedList<BaseProcessor> processors) {
         Objects.requireNonNull(processors, "processor can not be null");
         if (0 == processors.size()) throw new ConfigurationException("processor can not be empty.");
 
@@ -102,19 +102,19 @@ public final class ProcessorEngineBuilder {
 
     // executor method
 
-    public ProcessorEngineBuilder parallel() {
+    public PehEngineBuilder parallel() {
         this.curProcessor.parallel();
         return this;
     }
 
-    public ProcessorEngineBuilder serial() {
+    public PehEngineBuilder serial() {
         this.curProcessor.serial();
         return this;
     }
 
     //handler method
 
-    public ProcessorEngineBuilder appendHandler(IHandler handler) {
+    public PehEngineBuilder appendHandler(IHandler handler) {
         Objects.requireNonNull(handler, "handler can not be null");
         Objects.requireNonNull(this.curProcessor, "current processor can not be null , pleas config processor before handler");
 
@@ -122,7 +122,7 @@ public final class ProcessorEngineBuilder {
         return this;
     }
 
-    public ProcessorEngineBuilder preposeHandler(IHandler handler) {
+    public PehEngineBuilder preposeHandler(IHandler handler) {
         Objects.requireNonNull(handler, "handler can not be null");
         Objects.requireNonNull(this.curProcessor, "current processor can not be null , pleas config processor before handler");
 
@@ -130,7 +130,7 @@ public final class ProcessorEngineBuilder {
         return this;
     }
 
-    public ProcessorEngine build() {
+    public PehEngine build() {
         //check
         if (!ParamContextHolder.check()) {
             throw new ConfigurationException("please check request param or response param setting in processorEngine.");
@@ -139,7 +139,7 @@ public final class ProcessorEngineBuilder {
             throw new ConfigurationException("processors can not be empty");
         }
 
-        ProcessorEngine processorEngine = new ProcessorEngine();
+        PehEngine processorEngine = new PehEngine();
         processorEngine.processors = this.processors;
         return processorEngine;
     }

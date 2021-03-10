@@ -7,15 +7,17 @@ package com.github.peh.lifeCycle;
  */
 public interface ILifeCycle {
 
-    void initial();
+    void initial(Object... objects);
 
-    void running();
+    void running(Object... objects);
 
-    void stop();
+    void stop(Object... objects);
 
-    void finish();
+    Object afterReturning(Object... objects);
 
-    void exception();
+    void finish(Object... objects);
+
+    void exception(Object... objects);
 
     LifeCycleEnums getLifeCycle();
 }

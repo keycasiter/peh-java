@@ -20,7 +20,7 @@ public class ParamContextHolder extends ContextHolder {
      */
     public final static String RESPONSE_PARAM = "RESPONSE_PARAM";
 
-    public static void bindRequest(Object value) {
+    public static void setRequest(Object value) {
         put(REQUEST_PARAM, value);
     }
 
@@ -32,7 +32,7 @@ public class ParamContextHolder extends ContextHolder {
         return (D) get(REQUEST_PARAM);
     }
 
-    public static void bindResponse(Object value) {
+    public static void setResponse(Object value) {
         put(RESPONSE_PARAM, value);
     }
 

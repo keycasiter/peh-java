@@ -1,6 +1,6 @@
 import com.alibaba.fastjson.JSON;
-import com.github.peh.ProcessorEngine;
-import com.github.peh.ProcessorEngineBuilder;
+import com.github.peh.PehEngine;
+import com.github.peh.PehEngineBuilder;
 import com.github.peh.context.ExecutorContextHolder;
 import com.github.peh.context.ParamContextHolder;
 import com.github.peh.handler.AbstractHandler;
@@ -10,7 +10,7 @@ import com.github.peh.processor.BaseProcessor;
 /**
  * created by guanjian on 2021/2/25 17:39
  */
-public class ProcessorEngineTest {
+public class PehEngineTest {
 
     public static void main(String[] args) {
 
@@ -55,7 +55,7 @@ public class ProcessorEngineTest {
                 System.out.println(getVariable(certNoKey));
 
                 //停止Executor
-                unableExecutor(processor1.getExecutor());
+//                unableExecutor(processor1.getExecutor());
                 //停止Processor
 //                unableProcessor();
             }
@@ -68,7 +68,7 @@ public class ProcessorEngineTest {
         ResponseObject response = new ResponseObject();
 
 
-        ProcessorEngine processorEngine = ProcessorEngineBuilder.builder()
+        PehEngine processorEngine = PehEngineBuilder.builder()
                 //param
                 .request(request)
                 .response(response)

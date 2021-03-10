@@ -56,15 +56,6 @@ public class BaseProcessor implements IProcessor {
         executor.execute();
     }
 
-    @Override
-    public Object process(Object request) {
-        ParamContextHolder.bindRequest(request);
-
-        process();
-
-        return ParamContextHolder.getResponse();
-    }
-
     public boolean available() {
         return ProcessorContextHolder.available();
     }

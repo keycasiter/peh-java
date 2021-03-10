@@ -16,12 +16,4 @@ public interface IProcessor {
      * 处理方法
      */
     void process();
-
-    /**
-     * 处理方法
-     *
-     * @param request 入参
-     * @return response 出参
-     */
-    Object process(Object request);
 }
