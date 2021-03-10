@@ -10,12 +10,12 @@ import org.slf4j.LoggerFactory;
 /**
  * created by guanjian on 2021/3/10 18:01
  */
-public abstract class PehEngineSupport implements ILifeCycle {
-    private final static Logger LOGGER = LoggerFactory.getLogger(PehEngine.class);
+public abstract class LifeCycleManager implements ILifeCycle {
+    private final static Logger LOGGER = LoggerFactory.getLogger(LifeCycleManager.class);
 
     @Override
     public void initial(Object... objects) {
-        LOGGER.debug("[ENGINE-INITIAL] initial phase ...");
+        LOGGER.debug("[LIFECYCLE-MANAGER-INITIAL] initial phase ...");
         LifeCycleContextHolder.initial();
         doInitial(objects);
     }
@@ -24,7 +24,7 @@ public abstract class PehEngineSupport implements ILifeCycle {
 
     @Override
     public void running(Object... objects) {
-        LOGGER.debug("[ENGINE-RUNNING] running phase ...");
+        LOGGER.debug("[LIFECYCLE-MANAGER-RUNNING] running phase ...");
         LifeCycleContextHolder.running();
         doRunning();
     }
@@ -33,7 +33,7 @@ public abstract class PehEngineSupport implements ILifeCycle {
 
     @Override
     public void stop(Object... objects) {
-        LOGGER.debug("[ENGINE-STOP] stop phase ...");
+        LOGGER.debug("[LIFECYCLE-MANAGER-STOP] stop phase ...");
         LifeCycleContextHolder.stop();
         doStop();
     }
@@ -50,7 +50,7 @@ public abstract class PehEngineSupport implements ILifeCycle {
 
     @Override
     public void finish(Object... objects) {
-        LOGGER.debug("[ENGINE-FINISH] finish phase ...");
+        LOGGER.debug("[LIFECYCLE-MANAGER-FINISH] finish phase ...");
         LifeCycleContextHolder.finish();
 
         ContextHolder.clear();
@@ -62,7 +62,7 @@ public abstract class PehEngineSupport implements ILifeCycle {
 
     @Override
     public void exception(Object... objects) {
-        LOGGER.debug("[ENGINE-EXCEPTION] exception phase ...");
+        LOGGER.debug("[LIFECYCLE-MANAGER-EXCEPTION] exception phase ...");
         LifeCycleContextHolder.exception();
         doException();
     }

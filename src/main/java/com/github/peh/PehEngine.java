@@ -17,7 +17,7 @@ import java.util.Set;
  * @date: 2020/07/10 13:49
  * @description: 处理器引擎
  */
-public class PehEngine extends PehEngineSupport {
+public class PehEngine extends LifeCycleManager {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(PehEngine.class);
 
