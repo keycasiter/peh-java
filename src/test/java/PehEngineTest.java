@@ -7,6 +7,8 @@ import com.github.peh.handler.AbstractHandler;
 import com.github.peh.handler.IHandler;
 import com.github.peh.processor.BaseProcessor;
 
+import java.util.Optional;
+
 /**
  * created by guanjian on 2021/2/25 17:39
  */
@@ -31,9 +33,13 @@ public class PehEngineTest {
             @Override
             public void handle() {
                 System.out.println("handler - 2");
-                ParamContextHolder.getResponse(ResponseObject.class).setPassword("123123123");
+                Optional.ofNullable(ParamContextHolder.getResponse(ResponseObject.class)).ifPresent(x->{
+                    x.setPassword("123123123123123");
+                });
                 System.out.println(getVariable(certNoKey));;
-                ParamContextHolder.getResponse(ResponseObject.class).setCertNo(getVariable(certNoKey,String.class));
+                Optional.ofNullable(ParamContextHolder.getResponse(ResponseObject.class)).ifPresent(x->{
+                    x.setCertNo(getVariable(certNoKey,String.class));
+                });
             }
         };
 
@@ -42,7 +48,7 @@ public class PehEngineTest {
             public void handle() {
                 System.out.println("handler - 3");
                 RequestObject request = ParamContextHolder.getRequest(RequestObject.class);
-                System.out.println(request.getUserName());
+                System.out.println(Optional.ofNullable(request).map(x->x.getUserName()));
 
                 setVariable(certNoKey,"13020202020200");
             }
@@ -70,8 +76,8 @@ public class PehEngineTest {
 
         PehEngine processorEngine = PehEngineBuilder.builder()
                 //param
-                .request(request)
-                .response(response)
+//                .request(request)
+//                .response(response)
                 //processor - 1
                 .appendProcessor(processor1)
                 .appendHandler(handler3)
@@ -81,10 +87,10 @@ public class PehEngineTest {
                 .appendHandler(handler2)
                 .build();
 
-        ResponseObject responseObject = (ResponseObject) processorEngine.process(request);
+//        ResponseObject responseObject = (ResponseObject) processorEngine.process(request);
+//        System.out.println(JSON.toJSONString(responseObject));
+        processorEngine.process();
 
-//        processorEngine.process();
 
-        System.out.println(JSON.toJSONString(responseObject));
     }
 }

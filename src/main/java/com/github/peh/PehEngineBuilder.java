@@ -131,10 +131,6 @@ public final class PehEngineBuilder {
     }
 
     public PehEngine build() {
-        //check
-        if (!ParamContextHolder.check()) {
-            throw new ConfigurationException("please check request param or response param setting in processorEngine.");
-        }
         if (this.processors.size() == 0) {
             throw new ConfigurationException("processors can not be empty");
         }
