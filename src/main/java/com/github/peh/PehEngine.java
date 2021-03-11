@@ -29,7 +29,7 @@ public class PehEngine extends PehEngienSupport {
         Optional.ofNullable(requests).ifPresent(reqs -> {
             if (0 == reqs.length) {
                 return;
-            } else if (reqs.length == 1) {
+            } else if (1 == reqs.length) {
                 ParamContextHolder.setRequest(reqs[0]);
             } else {
                 //store request object by order
