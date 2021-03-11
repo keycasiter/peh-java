@@ -50,7 +50,7 @@ public class ContextHolder {
         LOGGER.debug("[CONTEXT-HOLDER] variable key=[{}],value=[{}] setted.", key, JSON.toJSONString(value));
     }
 
-    public static void putAll(Map<Object, Object> map) {
+    public static void putAll(Map map) {
         Objects.requireNonNull(map, "map can not be null.");
         if (0 == map.size()) throw new ConfigurationException("map can not be empty.");
 
@@ -93,12 +93,20 @@ public class ContextHolder {
         return (C) getOrDefault(key, defaultObj);
     }
 
-    public static boolean hasExist(Object key) {
+    public static boolean containsKey(Object key) {
         Objects.requireNonNull(key, "key can not be null.");
 
         Map holder = THREAD_LOCAL_VARIABLE.get();
 
         return holder.containsKey(key);
+    }
+
+    public static boolean containsValue(Object value) {
+        Objects.requireNonNull(value, "value can not be null.");
+
+        Map holder = THREAD_LOCAL_VARIABLE.get();
+
+        return holder.containsValue(value);
     }
 
     public static boolean hasMatch(Object key, Object value) {
