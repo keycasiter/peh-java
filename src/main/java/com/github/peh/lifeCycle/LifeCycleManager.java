@@ -1,20 +1,20 @@
-package com.github.peh;
+package com.github.peh.lifeCycle;
 
 import com.github.peh.context.ContextHolder;
 import com.github.peh.context.LifeCycleContextHolder;
-import com.github.peh.lifeCycle.ILifeCycle;
-import com.github.peh.lifeCycle.LifeCycleEnums;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * created by guanjian on 2021/3/10 18:01
+ * @author: <a href=mailto:keycasiter@qq.com>guanjian</a>
+ * @date: 2021/03/11 9:26
+ * @description: 生命周期管理
  */
 public abstract class LifeCycleManager implements ILifeCycle {
     private final static Logger LOGGER = LoggerFactory.getLogger(LifeCycleManager.class);
 
     @Override
-    public void initial(Object... objects) {
+    public final void initial(Object... objects) {
         LOGGER.debug("[LIFECYCLE-MANAGER-INITIAL] initial phase ...");
         LifeCycleContextHolder.initial();
         doInitial(objects);
@@ -23,7 +23,7 @@ public abstract class LifeCycleManager implements ILifeCycle {
     public abstract void doInitial(Object... objects);
 
     @Override
-    public void running(Object... objects) {
+    public final void running(Object... objects) {
         LOGGER.debug("[LIFECYCLE-MANAGER-RUNNING] running phase ...");
         LifeCycleContextHolder.running();
         doRunning();
@@ -32,45 +32,45 @@ public abstract class LifeCycleManager implements ILifeCycle {
     public abstract void doRunning(Object... objects);
 
     @Override
-    public void stop(Object... objects) {
+    public final void stop(Object... objects) {
         LOGGER.debug("[LIFECYCLE-MANAGER-STOP] stop phase ...");
         LifeCycleContextHolder.stop();
-        doStop();
+        doStop(objects);
     }
 
     public abstract void doStop(Object... objects);
 
     @Override
-    public Object afterReturning(Object... objects) {
+    public final Object afterReturning(Object... objects) {
         LifeCycleContextHolder.afterReturning();
-        return doAfterReturning();
+        return doAfterReturning(objects);
     }
 
     public abstract Object doAfterReturning(Object... objects);
 
     @Override
-    public void finish(Object... objects) {
+    public final void finish(Object... objects) {
         LOGGER.debug("[LIFECYCLE-MANAGER-FINISH] finish phase ...");
         LifeCycleContextHolder.finish();
 
         ContextHolder.clear();
 
-        doFinish();
+        doFinish(objects);
     }
 
     public abstract void doFinish(Object... objects);
 
     @Override
-    public void exception(Object... objects) {
+    public final void exception(Object... objects) {
         LOGGER.debug("[LIFECYCLE-MANAGER-EXCEPTION] exception phase ...");
         LifeCycleContextHolder.exception();
-        doException();
+        doException(objects);
     }
 
     public abstract void doException(Object... objects);
 
     @Override
-    public LifeCycleEnums getLifeCycle() {
+    public final LifeCycleEnums getLifeCycle() {
         return LifeCycleContextHolder.getLifeCycle();
     }
 

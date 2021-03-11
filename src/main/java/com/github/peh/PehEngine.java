@@ -2,6 +2,7 @@ package com.github.peh;
 
 import com.github.peh.context.ParamContextHolder;
 import com.github.peh.exception.BaseRuntimeException;
+import com.github.peh.lifeCycle.LifeCycleManager;
 import com.github.peh.processor.BaseProcessor;
 import com.google.common.collect.Sets;
 import org.slf4j.Logger;
@@ -17,7 +18,7 @@ import java.util.Set;
  * @date: 2020/07/10 13:49
  * @description: 处理器引擎
  */
-public class PehEngine extends LifeCycleManager {
+public class PehEngine extends PehEngienSupport {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(PehEngine.class);
 
@@ -27,7 +28,9 @@ public class PehEngine extends LifeCycleManager {
     public void doInitial(Object... requests) {
         //handle request objects
         Optional.ofNullable(requests).ifPresent(reqs -> {
-            if (reqs.length == 1) {
+            if (0 == reqs.length){
+                return;
+            } else if (reqs.length == 1) {
                 ParamContextHolder.setRequest(reqs[0]);
             } else {
                 //store request object by order
@@ -78,7 +81,7 @@ public class PehEngine extends LifeCycleManager {
         Objects.requireNonNull(processors, "processors can not be null");
 
         try {
-            initial();
+            initial(requests);
 
             running();
 
