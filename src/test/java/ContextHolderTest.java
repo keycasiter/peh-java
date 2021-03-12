@@ -52,6 +52,11 @@ public class ContextHolderTest {
         System.out.println(ContextHolder.containsValue("ss"));
     }
 
+    public static void match() {
+        ContextHolder.put(key, value);
+        System.out.println(ContextHolder.match(key,value));
+    }
+
     public static void main(String[] args) {
 //        put();
 //        clear();
@@ -59,6 +64,7 @@ public class ContextHolderTest {
 //        getOrDefault();
 //        containsKey();
 //        containsValue();
+        match();
     }
 
 }

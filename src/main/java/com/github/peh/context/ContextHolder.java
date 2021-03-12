@@ -109,7 +109,7 @@ public class ContextHolder {
         return holder.containsValue(value);
     }
 
-    public static boolean hasMatch(Object key, Object value) {
+    public static boolean match(Object key, Object value) {
         Objects.requireNonNull(key, "key can not be null.");
         Objects.requireNonNull(value, "value can not be null.");
 
